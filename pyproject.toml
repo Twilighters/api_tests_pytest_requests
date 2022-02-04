@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "api_tests"
+version = "0.1.0"
+description = ""
+authors = ["Twilighters <ilya475@rambler.ru>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pytest = "^6.2.5"
+requests = "^2.27.1"
+Faker = "^12.0.0"
+flake8 = "^4.0.1"
+attrs = "^21.4.0"
+cattrs = "^1.10.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
