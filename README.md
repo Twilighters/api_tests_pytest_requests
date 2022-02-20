@@ -1,5 +1,5 @@
+[![tests](https://github.com/Twilighters/api_tests_pytest_requests/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/Twilighters/api_tests_pytest_requests/actions/workflows/tests.yml)
 # Python api tests
-
 This is a tutorial project that shows how to implement api tests in Python
 
 The project uses:
@@ -48,7 +48,7 @@ pre-commit install
 
 ### Run all tests
 
-```python
+```
 pytest
 ```
 
