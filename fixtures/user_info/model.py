@@ -32,6 +32,9 @@ class AddUserInfo(BaseClass):
 
 
 @attr.s
-class RegisterUserResponse:
-    message: str = attr.ib()
-    uuid: int = attr.ib()
+class GetUserInfoResponse:
+    phone: str = attr.ib(default=None)
+    email: str = attr.ib(default=None)
+    userID: int = attr.ib(default=None)
+    street: str = attr.ib(default=None)
+    city: str = attr.ib(default=None)
