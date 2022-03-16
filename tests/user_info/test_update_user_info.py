@@ -1,5 +1,6 @@
 import pytest
 
+# from fixtures.constants import ResponseText
 from fixtures.user_info.model import AddUserInfo
 
 
@@ -18,7 +19,9 @@ class TestUpdateUserInfo:
             type_response=AddUserInfo,
             header=auth_user.header,
         )
-        assert res.status_code == 200
+        assert res.status_code == 200, "Check status code"
+        # TODO Доделать ассерты
+        # assert res.data.message == ResponseText.MESSAGE_UPDATE_USER_INFO
 
     @pytest.mark.parametrize("uuid", ["string", "@", -55, True])
     def test_update_invalid_id_user_info(self, app, auth_user, user_info, uuid):
@@ -100,3 +103,5 @@ class TestUpdateUserInfo:
             header=auth_user.header,
         )
         assert res.status_code == 404
+        # TODO Доделать ассерты
+        # assert res.data.message == ResponseText.MESSAGE_INFO_NOT_FOUND_DOT
