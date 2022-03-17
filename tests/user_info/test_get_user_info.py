@@ -14,10 +14,9 @@ class TestGetUserInfo:
             user_id=user_info.user_uuid, header=user_info.header
         )
         assert res.status_code == 200, "Check status code"
-        # TODO Доделать ассерты
-        # assert res.data.city == user_info.user_info.address.city, "Check city"
-        # assert res.data.street == user_info.user_info.address.street, "Check street"
-        # assert res.data.email == user_info.user_info.email, "Check email"
+        assert res.data.city == user_info.user_info.address.city, "Check city"
+        assert res.data.street == user_info.user_info.address.street, "Check street"
+        assert res.data.email == user_info.user_info.email, "Check email"
 
     def test_get_user_info_none_exist_user_id(
         self, app, user_info, none_exist_user_id=99999

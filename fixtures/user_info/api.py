@@ -1,5 +1,7 @@
 from requests import Response
-from fixtures.user_info.model import AddUserInfo
+
+from fixtures.common_models import MessageResponse
+from fixtures.user_info.model import AddUserInfo, GetUserInfoResponse
 from fixtures.validator import Validator
 from common.deco import logging as log
 
@@ -15,7 +17,11 @@ class UserInfo(Validator):
 
     @log("Add user info")
     def add_user_info(
-        self, user_id: int, data: AddUserInfo, header=None, type_response=None
+        self,
+        user_id: int,
+        data: AddUserInfo,
+        header=None,
+        type_response=MessageResponse,
     ) -> Response:
         """
         https://app.swaggerhub.com/apis-docs/berpress/flask-rest-api/1.0.0#/userInfoAdd # noqa
@@ -30,7 +36,11 @@ class UserInfo(Validator):
 
     @log("Update user info")
     def update_user_info(
-        self, user_id: int, data: AddUserInfo, header=None, type_response=None
+        self,
+        user_id: int,
+        data: AddUserInfo,
+        header=None,
+        type_response=MessageResponse,
     ) -> Response:
         """
         https://app.swaggerhub.com/apis-docs/berpress/flask-rest-api/1.0.0#/userInfoUpdate # noqa
@@ -44,7 +54,9 @@ class UserInfo(Validator):
         return self.structure(response, type_response=type_response)
 
     @log("Get user info")
-    def get_user_info(self, user_id: int, header=None, type_response=None) -> Response:
+    def get_user_info(
+        self, user_id: int, header=None, type_response=GetUserInfoResponse
+    ) -> Response:
         """
         https://app.swaggerhub.com/apis-docs/berpress/flask-rest-api/1.0.0#/userInfoGet # noqa
         """
@@ -57,7 +69,7 @@ class UserInfo(Validator):
 
     @log("Delete user info")
     def delete_user_info(
-        self, user_id: int, header=None, type_response=None
+        self, user_id: int, header=None, type_response=MessageResponse
     ) -> Response:
         """
         https://app.swaggerhub.com/apis-docs/berpress/flask-rest-api/1.0.0#/userInfoDelete # noqa

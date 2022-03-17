@@ -1,6 +1,7 @@
 import pytest
 
-# from fixtures.constants import ResponseText
+from fixtures.common_models import MessageResponse
+from fixtures.constants import ResponseText
 from fixtures.user_info.model import AddUserInfo
 
 
@@ -14,14 +15,12 @@ class TestUpdateUserInfo:
 
         data = AddUserInfo.random()
         res = app.user_info.update_user_info(
-            user_id=auth_user.user_uuid,
+            user_id=user_info.user_uuid,
             data=data,
-            type_response=AddUserInfo,
             header=auth_user.header,
         )
         assert res.status_code == 200, "Check status code"
-        # TODO Доделать ассерты
-        # assert res.data.message == ResponseText.MESSAGE_UPDATE_USER_INFO
+        assert res.data.message == ResponseText.MESSAGE_UPDATE_USER_INFO
 
     @pytest.mark.parametrize("uuid", ["string", "@", -55, True])
     def test_update_invalid_id_user_info(self, app, auth_user, user_info, uuid):
@@ -87,7 +86,7 @@ class TestUpdateUserInfo:
         assert res.status_code == 401
 
     def test_update_user_with_none_exist_user_id(
-        self, app, auth_user, user_info, none_exist_user_id=99999
+        self, app, user_info, none_exist_user_id=99999
     ):
         """
         1. Try to update user info with none exist user id
@@ -99,9 +98,8 @@ class TestUpdateUserInfo:
         res = app.user_info.update_user_info(
             user_id=none_exist_user_id,
             data=data,
-            type_response=None,
-            header=auth_user.header,
+            type_response=MessageResponse,
+            header=user_info.header,
         )
         assert res.status_code == 404
-        # TODO Доделать ассерты
-        # assert res.data.message == ResponseText.MESSAGE_INFO_NOT_FOUND_DOT
+        assert res.data.message == ResponseText.MESSAGE_INFO_NOT_FOUND_DOT
