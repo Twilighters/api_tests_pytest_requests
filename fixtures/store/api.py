@@ -24,7 +24,7 @@ class Store(Validator):
             url=f"{self.app.url}{self.POST_STORE.format(name)}",
             headers=header,
         )
-        return self.structure(response, type_response=StoreResponse)
+        return self.structure(response, type_response=type_response)
 
     @log("Get store")
     def get_store(
@@ -38,4 +38,4 @@ class Store(Validator):
             url=f"{self.app.url}{self.POST_STORE.format(name)}",
             headers=header,
         )
-        return self.structure(response, type_response=StoreResponse)
+        return self.structure(response, type_response=type_response)

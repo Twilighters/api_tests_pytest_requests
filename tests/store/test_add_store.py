@@ -1,4 +1,5 @@
-# from fixtures.common_models import AuthInvalidResponse
+from fixtures.common_models import AuthInvalidResponse, MessageResponse
+from fixtures.constants import ResponseText
 from fixtures.store.model import Store
 
 
@@ -14,51 +15,33 @@ class TestAddStore:
         assert res.status_code == 201, "Check status code"
         assert res.data.name == data.name
 
-    # TODO отрефакторить код ниже, а то тест не работает
-    # def test_add_store_without_header(self, app, user_info):
-    #     """
-    #     1. Try to add store without auth header
-    #     2. Check that status code is 401
-    #     3. Check response
-    #     """
-    #     data = Store.random()
-    #     res = app.store.add_store(
-    #         name=data.name,
-    #         header=None,
-    #         type_response=AuthInvalidResponse
-    #     )
-    #     assert res.status_code == 401, "check status code"
+    def test_add_store_without_header(self, app, user_info):
+        """
+        1. Try to add store without auth header
+        2. Check that status code is 401
+        3. Check response
+        """
+        data = Store.random()
+        res = app.store.add_store(
+            name=data.name, header={}, type_response=AuthInvalidResponse
+        )
+        assert res.status_code == 401, "check status code"
+        assert res.data.description == ResponseText.DESCRIPTION_AUTH_ERROR
+        assert res.data.error == ResponseText.ERROR_AUTH_TEXT
+        assert res.data.status_code == 401, "Check status code"
 
-    # def test_add_user_info_invalid_token(self, app, auth_user, user_info):
-    #     """
-    #     1. Try to add user info with invalid token
-    #     2. Check the status code is 401
-    #     3. Check response
-    #     """
-    #
-    #     data = AddUserInfo.random()
-    #     res = app.user_info.add_user_info(
-    #         user_id=user_info.user_uuid,
-    #         data=data,
-    #         type_response=None,
-    #         header={"Authorization": f"JWT {1231231}"},
-    #     )
-    #     assert res.status_code == 401
-    #
-    # def test_update_user_with_none_exist_user_id(
-    #     self, app, auth_user, user_info, none_exist_user_id=99999
-    # ):
-    #     """
-    #     1. Try to update user info with none exist user id
-    #     2. Check the status code is 404
-    #     3. Check response
-    #     """
-    #
-    #     data = AddUserInfo.random()
-    #     res = app.user_info.add_user_info(
-    #         user_id=none_exist_user_id,
-    #         data=data,
-    #         type_response=None,
-    #         header=auth_user.header,
-    #     )
-    #     assert res.status_code == 404
+    def test_double_add_store(self, app, auth_user, user_info):
+        """
+        1. Try to twice add store
+        2. Check the status code is 400
+        3. Check response
+        """
+
+        data = Store.random()
+        res = app.store.add_store(data.name, header=user_info.header)
+        assert res.status_code == 201, "Check status code"
+        res_2 = app.store.add_store(
+            data.name, header=user_info.header, type_response=MessageResponse
+        )
+        assert res_2.status_code == 400, "Check status code"
+        assert res_2.data.message == ResponseText.MESSAGE_STORE_EXIST.format(data.name)
