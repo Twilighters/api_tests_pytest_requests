@@ -20,7 +20,7 @@ swagger: https://app.swaggerhub.com/apis/berpress/flask-rest-api/1.0.0
 
 
 ### How to start
-use Docker and test this app local
+Use Docker and test this app local
 ```
 docker run -d -p 56733:80 litovsky/flask-api-test
 ```
