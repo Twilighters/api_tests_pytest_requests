@@ -4,7 +4,7 @@ from fixtures.validator import Validator
 from common.deco import logging as log
 
 
-class AuthUser(Validator):
+class AuthController(Validator):
     def __init__(self, app):
         self.app = app
 

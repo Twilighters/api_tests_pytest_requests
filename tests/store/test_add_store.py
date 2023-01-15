@@ -6,12 +6,12 @@ from fixtures.store.model import Store
 class TestAddStore:
     def test_add_store_with_valid_data(self, app, user_info):
         """
-        1. Try add store with valid data
+        1. Try to add store with valid data
         2. Check the status code is 201
         3. Check response
         """
         data = Store.random()
-        res = app.store.add_store(data.name, header=user_info.header)
+        res = app.store.add_store(name=data.name, header=user_info.header)
         assert res.status_code == 201, "Check status code"
         assert res.data.name == data.name
 
@@ -30,7 +30,7 @@ class TestAddStore:
         assert res.data.error == ResponseText.ERROR_AUTH_TEXT
         assert res.data.status_code == 401, "Check status code"
 
-    def test_double_add_store(self, app, auth_user, user_info):
+    def test_double_add_store(self, app, user_info):
         """
         1. Try to twice add store
         2. Check the status code is 400
@@ -38,10 +38,10 @@ class TestAddStore:
         """
 
         data = Store.random()
-        res = app.store.add_store(data.name, header=user_info.header)
+        res = app.store.add_store(name=data.name, header=user_info.header)
         assert res.status_code == 201, "Check status code"
         res_2 = app.store.add_store(
-            data.name, header=user_info.header, type_response=MessageResponse
+            name=data.name, header=user_info.header, type_response=MessageResponse
         )
         assert res_2.status_code == 400, "Check status code"
         assert res_2.data.message == ResponseText.MESSAGE_STORE_EXIST.format(data.name)

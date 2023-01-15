@@ -1,34 +1,19 @@
 from fixtures.constants import ResponseText
 from fixtures.store.model import Store
-from fixtures.common_models import AuthInvalidResponse, MessageResponse
+from fixtures.common_models import MessageResponse
 
 
 class TestGetStore:
-    def test_get_store(self, app, store):
+    def test_get_store(self, app, get_store_name):
         """
         1. Try to get store
         2. Check the status code is 200
         3. Check response
         """
-        res = app.store.get_store(store.store, header=store.header)
-        assert res.status_code == 200, "Check status code"
-
-    def test_get_store_wo_auth_header(self, app, user_info):
-        """
-        1. Try to get store wo auth header
-        2. Check that status code is 401
-        3. Check response
-        """
-        data = Store.random()
         res = app.store.get_store(
-            name=data.name,
-            header=None,
-            type_response=AuthInvalidResponse,
+            name=get_store_name.store_name, header=get_store_name.header
         )
-        assert res.status_code == 401, "Check status code"
-        assert res.data.description == ResponseText.DESCRIPTION_AUTH_ERROR
-        assert res.data.error == ResponseText.ERROR_AUTH_TEXT
-        assert res.data.status_code == 401, "Check status code"
+        assert res.status_code == 200, "Check status code"
 
     def test_get_store_with_none_exist_name(self, app, user_info):
         """

@@ -1,7 +1,8 @@
-from fixtures.auth.api import AuthUser
-from fixtures.register.api import Register
-from fixtures.store.api import Store
-from fixtures.user_info.api import UserInfo
+from fixtures.auth.api import AuthController
+from fixtures.register.api import RegisterController
+from fixtures.store.api import StoreMagazineController
+from fixtures.store_item.api import StoreItemController
+from fixtures.user_info.api import UserInfoController
 from fixtures.requests import Client
 
 
@@ -9,7 +10,11 @@ class StoreApp:
     def __init__(self, url):
         self.url = url
         self.client = Client
-        self.register = Register(self)
-        self.auth = AuthUser(self)
-        self.user_info = UserInfo(self)
-        self.store = Store(self)
+        self.register = RegisterController(self)
+        self.auth = AuthController(self)
+        self.user_info = UserInfoController(self)
+        self.store = StoreMagazineController(self)
+        self.store_item = StoreItemController(self)
+        # self.store_items = StoreItemsController(self)
+        # self.user_balance = UserBalanceController(self)
+        # self.pay = PayController(self)

@@ -5,7 +5,7 @@ from fixtures.validator import Validator
 from common.deco import logging as log
 
 
-class Store(Validator):
+class StoreMagazineController(Validator):
     def __init__(self, app):
         self.app = app
 

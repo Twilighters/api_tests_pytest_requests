@@ -1,6 +1,7 @@
 import attr
 from faker import Faker
 from typing import List
+import random
 
 from fixtures.base import BaseClass
 
@@ -13,7 +14,7 @@ class Store(BaseClass):
 
     @staticmethod
     def random():
-        return Store(name=fake.first_name().lower())
+        return Store(name=fake.first_name().lower() + str(random.randint(0, 9999)))
 
 
 @attr.s

@@ -5,14 +5,14 @@ from fixtures.validator import Validator
 from common.deco import logging as log
 
 
-class Register(Validator):
+class RegisterController(Validator):
     def __init__(self, app):
         self.app = app
 
     POST_REGISTER = "/register"
 
     @log("Register new user")
-    def register(
+    def register_new_user(
         self, data: RegisterUser, type_response=RegisterUserResponse
     ) -> Response:
         """
