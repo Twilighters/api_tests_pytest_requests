@@ -24,6 +24,9 @@ Use Docker and test this app local
 ```
 docker run -d -p 56733:80 litovsky/flask-api-test
 ```
+open in browser and check
+
+http://localhost:56733
 
 Use python 3.8 +
 Create and activate virtual environments
