@@ -21,6 +21,8 @@ class UserStore(BaseClass):
     store_id: int = attr.ib(default=None)
     store_item_info: AddStoreItem = attr.ib(default=None)
     store_item_name: str = attr.ib(default=None)
+    user_balance: int = attr.ib(default=None)
+    item_id: int = attr.ib(default=None)
 
 
 @attr.s

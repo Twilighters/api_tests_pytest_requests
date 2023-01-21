@@ -7,8 +7,6 @@ class TestGetStoreItem:
         """
 
         res = app.store_item.get_store_item(
-            item_name=store_item.store_item_name,
-            header=store_item.header,
-            type_response=None,
+            item_name=store_item.store_item_name, header=store_item.header
         )
         assert res.status_code == 200, "Check status code"

@@ -11,9 +11,6 @@ class TestUpdateStoreItem:
 
         data = UpdateStoreItem().random()
         res = app.store_item.update_store_item(
-            item_name=store_item.store_item_name,
-            data=data,
-            header=user_info.header,
-            type_response=None,
+            item_name=store_item.store_item_name, data=data, header=user_info.header
         )
         assert res.status_code == 200, "Check status code"
