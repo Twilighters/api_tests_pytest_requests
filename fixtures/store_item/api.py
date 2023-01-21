@@ -1,6 +1,5 @@
 from requests import Response
 
-from fixtures.common_models import MessageResponse
 from fixtures.store_item.model import GetStoreItemResponse
 from fixtures.user_info.model import AddUserInfo
 from fixtures.validator import Validator
@@ -18,7 +17,7 @@ class StoreItemController(Validator):
     @log("Add item to store")
     def add_store_item(
         self,
-        item_name: str,
+        item_name: int,
         data: AddUserInfo,
         header=None,
         type_response=GetStoreItemResponse,
@@ -40,7 +39,7 @@ class StoreItemController(Validator):
         item_name: str,
         data: AddUserInfo,
         header=None,
-        type_response=MessageResponse,
+        type_response=GetStoreItemResponse,
     ) -> Response:
         """
         https://app.swaggerhub.com/apis-docs/berpress/flask-rest-api/1.0.0#/storeItem/itemChange # noqa
